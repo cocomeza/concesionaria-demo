@@ -4,15 +4,34 @@
 
 ### 1. Variables de Entorno
 
-Asegúrate de tener configuradas estas variables en Vercel:
+**⚠️ IMPORTANTE:** Las variables de entorno deben configurarse directamente en el dashboard de Vercel, NO en el archivo `vercel.json`.
+
+**Cómo configurar las variables en Vercel:**
+
+1. Ve a tu proyecto en [Vercel Dashboard](https://vercel.com/dashboard)
+2. Click en **Settings** → **Environment Variables**
+3. Agrega cada variable una por una:
 
 **Obligatorias:**
-- `NEXT_PUBLIC_SUPABASE_URL` - URL de tu proyecto Supabase
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Anon Key de Supabase
+- `NEXT_PUBLIC_SUPABASE_URL` - URL de tu proyecto Supabase (ej: `https://xxxxx.supabase.co`)
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Anon Key de Supabase (la encuentras en Supabase → Settings → API)
 
 **Opcionales:**
-- `SUPABASE_SERVICE_ROLE_KEY` - Solo si necesitas operaciones admin en servidor
-- `NEXT_PUBLIC_APP_URL` - URL de producción (se configura automáticamente en Vercel)
+- `SUPABASE_SERVICE_ROLE_KEY` - Solo si necesitas operaciones admin en servidor (⚠️ Mantén esto secreto)
+- `NEXT_PUBLIC_APP_URL` - URL de producción (se configura automáticamente en Vercel, pero puedes sobrescribirla)
+
+**Para cada variable:**
+- Selecciona los ambientes: **Production**, **Preview**, y **Development**
+- Click en **Save**
+- **Reinicia el deployment** después de agregar variables nuevas
+
+**Dónde encontrar las credenciales de Supabase:**
+1. Ve a tu proyecto en [Supabase Dashboard](https://supabase.com/dashboard)
+2. Click en **Settings** (⚙️) → **API**
+3. Copia:
+   - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
+   - **anon public** key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - **service_role** key → `SUPABASE_SERVICE_ROLE_KEY` (solo si lo necesitas)
 
 ### 2. Base de Datos Supabase
 
@@ -110,10 +129,18 @@ vercel --prod
 
 ## 🐛 Troubleshooting
 
+### Error: "Environment Variable references Secret which does not exist"
+**Solución:**
+- Este error ocurre cuando `vercel.json` referencia secretos que no existen
+- **Solución:** Elimina la sección `env` del `vercel.json` (ya está corregido)
+- Configura las variables directamente en Vercel Dashboard → Settings → Environment Variables
+- No uses la sintaxis `@secret_name` en `vercel.json` para variables de entorno
+
 ### Error: "Missing Supabase environment variables"
-- Verifica que las variables estén configuradas en Vercel
-- Asegúrate de que los nombres sean exactos (case-sensitive)
-- Reinicia el deployment después de agregar variables
+- Verifica que las variables estén configuradas en Vercel Dashboard → Settings → Environment Variables
+- Asegúrate de que los nombres sean exactos (case-sensitive): `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- Reinicia el deployment después de agregar variables nuevas
+- Verifica que hayas seleccionado los ambientes correctos (Production, Preview, Development)
 
 ### Error: "Failed to fetch" o CORS
 - Verifica configuración de CORS en Supabase
