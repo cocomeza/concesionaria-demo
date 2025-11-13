@@ -9,7 +9,14 @@ export const vehicleSchema = z.object({
     .min(1900, 'El año debe ser válido')
     .max(new Date().getFullYear() + 1, 'El año no puede ser futuro'),
   precio: z.number().min(0, 'El precio debe ser mayor a 0'),
-  precio_anterior: z.number().min(0).nullable().optional(),
+  precio_anterior: z
+    .union([
+      z.number().min(0, 'El precio anterior debe ser mayor a 0'),
+      z.null(),
+      z.undefined(),
+    ])
+    .optional()
+    .nullable(),
   kilometraje: z.number().int().min(0).nullable().optional(),
   combustible: z
     .enum(['nafta', 'diesel', 'electrico', 'hibrido'])

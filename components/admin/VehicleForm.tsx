@@ -73,6 +73,10 @@ export function VehicleForm({ vehicleId }: VehicleFormProps) {
     try {
       const formData = {
         ...data,
+        // Asegurar que precio_anterior sea null si está vacío o es NaN
+        precio_anterior: data.precio_anterior && !isNaN(data.precio_anterior) 
+          ? data.precio_anterior 
+          : null,
         caracteristicas,
         imagen_principal: imagenes[0] || null,
       }
@@ -176,12 +180,20 @@ export function VehicleForm({ vehicleId }: VehicleFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="precio_anterior">Precio Anterior</Label>
+              <Label htmlFor="precio_anterior">Precio Anterior (Opcional)</Label>
               <Input
                 id="precio_anterior"
                 type="number"
                 step="0.01"
-                {...register('precio_anterior', { valueAsNumber: true })}
+                {...register('precio_anterior', {
+                  setValueAs: (value) => {
+                    if (value === '' || value === null || value === undefined) {
+                      return null
+                    }
+                    const num = Number(value)
+                    return isNaN(num) ? null : num
+                  },
+                })}
                 placeholder="Opcional"
               />
             </div>
