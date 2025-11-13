@@ -108,6 +108,24 @@ export function useUpdateVehicle() {
 
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
+      // Obtener el vehículo actual para comparar la patente
+      const { data: currentVehicle } = await supabase
+        .from('vehicles')
+        .select('patente')
+        .eq('id', id)
+        .single()
+
+      // Si la patente no cambió, excluirla del update para evitar el error de restricción única
+      if (currentVehicle && updates.patente === currentVehicle.patente) {
+        const { patente, ...updatesWithoutPatente } = updates
+        updates = updatesWithoutPatente
+      }
+
+      // Si la patente está vacía o es null, establecerla como null explícitamente
+      if (updates.patente === '' || updates.patente === undefined) {
+        updates.patente = null
+      }
+
       const { data, error } = await supabase
         .from('vehicles')
         .update(updates)
@@ -120,15 +138,23 @@ export function useUpdateVehicle() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['vehicles'] })
+      queryClient.invalidateQueries({ queryKey: ['vehicle'] })
       toast({
         title: 'Vehículo actualizado',
         description: 'Los cambios se han guardado exitosamente',
       })
     },
     onError: (error: any) => {
+      // Mensaje de error más amigable para el usuario
+      let errorMessage = error.message || 'Error al actualizar el vehículo'
+      
+      if (error.message?.includes('patente_key')) {
+        errorMessage = 'La patente ingresada ya está registrada en otro vehículo'
+      }
+
       toast({
         title: 'Error',
-        description: error.message || 'Error al actualizar el vehículo',
+        description: errorMessage,
         variant: 'destructive',
       })
     },
