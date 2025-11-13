@@ -146,6 +146,7 @@ export function VehicleImageCarousel({
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 25vw, 20vw"
+                  loading={index < 4 ? "eager" : "lazy"}
                 />
                 {index === currentIndex && (
                   <div className="absolute inset-0 bg-cyan-500/20" />
