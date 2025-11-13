@@ -69,25 +69,25 @@ export default async function VehicleDetailPage({
             </div>
 
             {/* Especificaciones */}
-            <Card className="bg-slate-900/80 border-slate-800">
+            <Card className="bg-slate-900/90 border-slate-700">
               <CardContent className="p-4 md:p-6">
-                <h2 className="text-lg md:text-xl font-semibold mb-4">
+                <h2 className="text-lg md:text-xl font-semibold mb-4 text-white">
                   Especificaciones
                 </h2>
                 <div className="grid grid-cols-2 gap-3 md:gap-4">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-gray-400" />
+                    <Calendar className="w-5 h-5 text-cyan-400" />
                     <div>
-                      <p className="text-sm text-gray-400">Año</p>
-                      <p className="font-semibold">{vehiculo.año}</p>
+                      <p className="text-sm text-gray-300">Año</p>
+                      <p className="font-semibold text-white">{vehiculo.año}</p>
                     </div>
                   </div>
                   {vehiculo.kilometraje && (
                     <div className="flex items-center gap-2">
-                      <Gauge className="w-5 h-5 text-gray-400" />
+                      <Gauge className="w-5 h-5 text-cyan-400" />
                       <div>
-                        <p className="text-sm text-gray-400">Kilometraje</p>
-                        <p className="font-semibold">
+                        <p className="text-sm text-gray-300">Kilometraje</p>
+                        <p className="font-semibold text-white">
                           {vehiculo.kilometraje.toLocaleString('es-AR')} km
                         </p>
                       </div>
@@ -95,10 +95,10 @@ export default async function VehicleDetailPage({
                   )}
                   {vehiculo.combustible && (
                     <div className="flex items-center gap-2">
-                      <Fuel className="w-5 h-5 text-gray-400" />
+                      <Fuel className="w-5 h-5 text-cyan-400" />
                       <div>
-                        <p className="text-sm text-gray-400">Combustible</p>
-                        <p className="font-semibold capitalize">
+                        <p className="text-sm text-gray-300">Combustible</p>
+                        <p className="font-semibold capitalize text-white">
                           {vehiculo.combustible}
                         </p>
                       </div>
@@ -106,10 +106,10 @@ export default async function VehicleDetailPage({
                   )}
                   {vehiculo.transmision && (
                     <div className="flex items-center gap-2">
-                      <Settings className="w-5 h-5 text-gray-400" />
+                      <Settings className="w-5 h-5 text-cyan-400" />
                       <div>
-                        <p className="text-sm text-gray-400">Transmisión</p>
-                        <p className="font-semibold capitalize">
+                        <p className="text-sm text-gray-300">Transmisión</p>
+                        <p className="font-semibold capitalize text-white">
                           {vehiculo.transmision}
                         </p>
                       </div>
@@ -117,10 +117,10 @@ export default async function VehicleDetailPage({
                   )}
                   {vehiculo.carroceria && (
                     <div className="flex items-center gap-2">
-                      <Car className="w-5 h-5 text-gray-400" />
+                      <Car className="w-5 h-5 text-cyan-400" />
                       <div>
-                        <p className="text-sm text-gray-400">Carrocería</p>
-                        <p className="font-semibold capitalize">
+                        <p className="text-sm text-gray-300">Carrocería</p>
+                        <p className="font-semibold capitalize text-white">
                           {vehiculo.carroceria}
                         </p>
                       </div>
@@ -128,10 +128,10 @@ export default async function VehicleDetailPage({
                   )}
                   {vehiculo.color && (
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full border border-gray-400" />
+                      <div className="w-5 h-5 rounded-full border-2 border-cyan-400" />
                       <div>
-                        <p className="text-sm text-gray-400">Color</p>
-                        <p className="font-semibold">{vehiculo.color}</p>
+                        <p className="text-sm text-gray-300">Color</p>
+                        <p className="font-semibold text-white">{vehiculo.color}</p>
                       </div>
                     </div>
                   )}
