@@ -147,7 +147,7 @@ export default async function VehicleDetailPage({
                     Características y Equipamiento
                   </h2>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {caracteristicas.map((caracteristica, idx) => (
+                    {caracteristicas.map((caracteristica: string, idx: number) => (
                       <li key={idx} className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-cyan-500 rounded-full" />
                         <span className="text-gray-300">{caracteristica}</span>
